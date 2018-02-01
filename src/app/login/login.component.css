@@ -1,0 +1,43 @@
+.login {
+  width: 250px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+}
+
+.login__btn {
+  width: 210px;
+  color: #fff !important;
+}
+
+.login__social_btn i{
+  margin-right: 15px;  
+}
+
+.login__login_input {
+  width: 210px;
+}
+
+.login__btn__local {
+  background-color: #444444 !important;
+}
+
+.login__btn__local:hover {
+  background-color: #5e5e5e !important;
+}
+
+.login__social_btn__fb {
+  background-color: #3b5998 !important;
+}
+
+.login__social_btn__fb:hover {
+  background-color: #4c70ba !important;
+}
+
+.login__social_btn__vk {
+  background-color: #587ea3 !important;  
+}
+
+.login__social_btn__vk:hover {  
+  background-color: #7897b6 !important;
+}
