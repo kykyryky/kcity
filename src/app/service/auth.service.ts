@@ -1,19 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   isLoggedIn = false;
 
   // store the URL so we can redirect after logging in
   redirectUrl: string;
 
-  login(){
-    // return this.http.get('/api/auth').subscribe(() => this.isLoggedIn = true);
+  login(username, password){
+    const response = this.http.post('/api/login', {}, {params: {username, password}});    
+    response.subscribe(() => {
+      this.isLoggedIn = true;
+      this.router.navigate([this.redirectUrl || '/dashboard']);
+      this.redirectUrl = null;
+    });
+    return response;
   }
 
   logout(): void {

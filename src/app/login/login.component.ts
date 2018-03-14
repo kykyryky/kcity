@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent { 
+  username = 'Usern@me';
+
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() { 
@@ -16,5 +18,9 @@ export class LoginComponent {
         this.authService.redirectUrl = null;
       }
     });
+  }
+
+  login() {
+    this.authService.login(this.username, 'password');
   }
 }

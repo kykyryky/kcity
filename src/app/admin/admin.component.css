@@ -1,0 +1,49 @@
+.admin {
+    margin: 20px;
+}
+
+.admin .mat-input-container {
+    width: 100%;
+}
+
+.admin .admin__show_slider {
+    float: right;
+    clear: both;
+}
+.admin {
+    margin: auto;
+    width: 900px;
+    background: #F1F1F1;
+    padding: 0px;
+}
+
+.admin .admin__create_btn {
+    float: right;
+    margin-top: 30px;
+    width: 50px;
+    clear: both;
+}
+
+.admin__upload {
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.admin__upload__list {
+    overflow-x: auto;
+    list-style-type: none;
+    margin: 10px 0px;
+    padding: 0;
+}
+
+.admin__upload__list__image_item {
+    float: left;   
+}
+
+.admin__upload__list__image_item img {
+    width: 100px;
+}
+
+.admin__upload__list__image_item__delete {
+    text-align: center;
+}

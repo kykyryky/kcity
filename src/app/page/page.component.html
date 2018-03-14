@@ -1,0 +1,22 @@
+<div class="page">
+  <div class="page__images">
+      <div
+      class="page__image"
+      *ngFor="let file of page.files">
+        <img src="image/{{file}}">
+    </div>
+  </div>
+
+
+  <div class="page__content">
+      <div class="page__title">
+        {{page.title}}
+      </div>
+      <div class="page__content">
+        {{page.content}}
+      </div>
+      <div class="page__info">
+          {{page.tags}}
+      </div>
+  </div> 
+</div>

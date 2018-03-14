@@ -1,0 +1,22 @@
+<div class="main-menu">
+    <div class="main-menu-btn">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">  
+        <a mat-menu-item routerLink='/dashboard'>
+            Лента
+        </a>
+        <a mat-menu-item routerLink='/map'>
+            Карта
+        </a>  
+        <a mat-menu-item routerLink='/admin'>
+            Админка
+        </a>
+        <a mat-menu-item href='/logout'>
+            Выйти
+        </a>    
+        </mat-menu>
+    </div>
+</div>
+

@@ -1,0 +1,58 @@
+<div class="admin">
+  <mat-card>
+    <mat-card-title>Добавить</mat-card-title>
+    <mat-card-content>
+      <div class="admin__upload">
+        <ul class="admin__upload__list">
+            <li class="admin__upload__list__image_item" *ngFor="let file of files">                
+              <img src="image/{{file}}">
+              <div class="admin__upload__list__image_item__delete">
+                  <button mat-raised-button 
+                  class='admin__upload__list__image_item__remove_btn' 
+                  (click)="deleteImage(file)">Удалить</button>
+              </div>              
+            </li>
+        </ul>
+        <input type="file" ngModel (change)="onSelect($event)" multiple/>  
+      </div>
+
+      <mat-form-field>
+        <input matInput placeholder="Заголовок" [(ngModel)]="title">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <textarea matInput 
+        matTextareaAutosize 
+        matAutosizeMinRows="5" 
+        matAutosizeMaxRows="5" 
+        placeholder="Описание"
+        [(ngModel)]="description">
+        </textarea>
+      </mat-form-field>
+    
+      <mat-form-field>
+        <textarea 
+        matInput 
+        matTextareaAutosize 
+        matAutosizeMinRows="10" 
+        matAutosizeMaxRows="10" 
+        placeholder="Содержимое"
+        [(ngModel)]="content">
+        </textarea>
+      </mat-form-field>
+    
+      <mat-form-field>
+        <input matInput placeholder="Хештеги" [(ngModel)]="tags">
+      </mat-form-field>
+    
+      <mat-slide-toggle
+          class="admin__show_slider"      
+          [(ngModel)]="show">
+        Показать
+      </mat-slide-toggle>        
+    </mat-card-content>    
+    <mat-card-actions>
+        <button mat-raised-button class='admin admin__create_btn' (click)="add()" [disabled]="loading">Добавить</button>        
+    </mat-card-actions>
+  </mat-card>  
+</div>

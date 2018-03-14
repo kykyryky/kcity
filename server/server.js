@@ -1,20 +1,26 @@
 // set up ========================
-var cors = require('cors');
-var express  = require('express');
-var app      = express();                               // create our app w/ express
-// var mongoose = require('mongoose');                     // mongoose for mongodb
-var morgan = require('morgan');             // log requests to the console (express4)
-var bodyParser = require('body-parser');    // pull information from HTML POST (express4)
-var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
+const cors = require('cors');
+const express  = require('express');
+const app      = express();                               // create our app w/ express
+const http = require('http');
+const https = require('https');
+const fs = require('fs');
 
-var session = require('express-session');
+const morgan = require('morgan');             // log requests to the console (express4)
+const bodyParser = require('body-parser');    // pull information from HTML POST (express4)
+const methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
+const session = require('express-session');
+const passport = require('passport');
+const multer  = require('multer');
 
-var passport = require('passport');
-// var LocalStrategy = require('passport-local').Strategy;
-// configuration =================
-// mongoose.connect('mongodb://node:nodeuser@mongo.onmodulus.net:27017/uwO3mypu');     // connect to mongoDB database on modulus.io
+const privateKey  = fs.readFileSync('./server/server.key', 'utf8');
+const certificate = fs.readFileSync('./server/server.crt', 'utf8');
 
-console.log(__dirname);
+const router = express.Router();
+
+const mongoose = require('mongoose');                     // mongoose for mongodb
+mongoose.connect('mongodb://localhost:27017/kirovsk');     // connect to mongoDB database on modulus.io
+
 app.use(express.static(__dirname + '/../dist'));                // set the static files location /public/img will be /img for users
 app.use(morgan('dev'));                                         // log every request to the console
 app.use(bodyParser.urlencoded({'extended':'true'}));            // parse application/x-www-form-urlencoded
@@ -35,6 +41,7 @@ app.use(passport.session());
 
 const FacebookStrategy = require('passport-facebook').Strategy;
 const VKontakteStrategy = require('passport-vkontakte').Strategy;
+const LocalStrategy = require('passport-local').Strategy;
 
 passport.use(new VKontakteStrategy(
     {
@@ -57,6 +64,15 @@ passport.use(new FacebookStrategy({
     }
 ));
 
+passport.use(new LocalStrategy({
+    usernameField: 'username',
+    passwordField: 'password'
+  },
+  function(username, password, done) {
+    return done(null, {username, password});
+  }
+));
+
 passport.serializeUser(function(user, done) {
     done(null, user);
 });
@@ -65,10 +81,10 @@ passport.deserializeUser(function(user, done) {
     done(null, user);
 });
 
-app.get('/auth/facebook',
+router.get('/auth/facebook',
   passport.authenticate('facebook'));
 
-app.get('/auth/facebook/callback', 
+router.get('/auth/facebook/callback', 
     function(req, res, next) {
         next();
     },
@@ -77,31 +93,41 @@ app.get('/auth/facebook/callback',
         res.redirect('/');
     });
 
-app.get('/auth/vkontakte', passport.authenticate('vkontakte'));
+router.get('/auth/vkontakte', passport.authenticate('vkontakte'));
 
-app.get('/auth/vkontakte/callback',
+router.get('/auth/vkontakte/callback',
     function(req, res, next) {
         next();
     },
     passport.authenticate('vkontakte', { failureRedirect: '/' }),
-    function(req, res) {
+    function(req, res) {        
         res.redirect('/');
     });
 
-app.get('/api/auth', 
-    function (req, res) {
-        if (!req.isAuthenticated()) {
-            res.status(401).send();
-        }
+router.post('/api/login',
+    passport.authenticate('local', { failureRedirect: '/' }),
+    function(req, res) {
         res.send(req.user);
-    });
+    }
+);
 
-app.get('/logout', function(req, res){
+router.get('/logout', function(req, res){
     req.logout();
     res.redirect('/');
 });
 
+app.get('/api/auth', function (req, res) {
+    if (!req.isAuthenticated()) {
+        res.status(401).send();
+    }
+    res.send(req.user);
+});
+
+app.use(router);
+app.use(require('./topic'));
+app.use(require('./upload'));
 
 // listen (start app with node server.js) ======================================
-app.listen(8080);
-console.log("App listening on port 8080");
+http.createServer(app).listen(8080);
+
+https.createServer({key: privateKey, cert: certificate}, app).listen(8081);
