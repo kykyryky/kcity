@@ -9,6 +9,7 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) { }
 
   isLoggedIn = false;
+  userInfo = null;
 
   // store the URL so we can redirect after logging in
   redirectUrl: string;
@@ -25,12 +26,16 @@ export class AuthService {
 
   logout(): void {
     this.isLoggedIn = false;
+    this.userInfo = null;
   }
 
   check(): Observable<any> {
     console.log('chech logged in')
     const response = this.http.get('/api/auth');
-    response.subscribe(() => this.isLoggedIn = true);
+    response.subscribe((userInfo) => {
+      this.userInfo = userInfo;
+      this.isLoggedIn = true
+    });
     return response;
   }
 }

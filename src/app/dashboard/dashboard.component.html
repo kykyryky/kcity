@@ -5,7 +5,7 @@
         <div
           class="dashboard__list__topic__img"
           *ngFor="let file of topic.files|slice:0:1">
-            <img src="image/{{file}}">
+            <img src="image/{{file}}/crop/300/200">
         </div>
       </a>
       <div class="dashboard__list__topic__body">
@@ -14,14 +14,13 @@
         </div>
         <div class="dashboard__list__topic__body__description">
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. At ipsum, inventore aspernatur sapiente voluptas quod assumenda expedita quia voluptate quo et animi, dolorem fugiat quis in perspiciatis repellendus praesentium obcaecati?
+        </div>      
+        <div class="dashboard__list__topic__body__add_info dashboard__list__topic__body__author" *ngIf='topic.author'>            
+            <span>Автор {{topic.author?.name}}</span>
         </div>
         <div class="dashboard__list__topic__body__add_info dashboard__list__topic__body__date">
-            <mat-icon>date_range</mat-icon> 
-            <span>{{topic.date | date:'short'}}</span>
-        </div>
-        <div class="dashboard__list__topic__body__add_info dashboard__list__topic__body__location">
-            <mat-icon>location_on</mat-icon> 
-            <span>{{topic.coords}}</span>
+            <mat-icon>access_time</mat-icon> 
+            <span>{{topic.date | date:'dd MMM yyyy, HH:mm'}}</span>
         </div>
       </div>
     </div>

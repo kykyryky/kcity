@@ -1,4 +1,8 @@
 <div class="main-menu">
+    <div class="main-menu__user-info" *ngIf='authService.userInfo'>
+        <img src='{{authService.userInfo.avatar}}'>
+        <div>{{authService.userInfo.name}}</div>
+    </div>
     <div class="main-menu-btn">
         <button mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon>more_vert</mat-icon>

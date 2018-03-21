@@ -43,6 +43,15 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const VKontakteStrategy = require('passport-vkontakte').Strategy;
 const LocalStrategy = require('passport-local').Strategy;
 
+
+const User = mongoose.model('User', { 
+    id: 'string',
+    type: 'string',
+    avatar: 'string',
+    name: 'string',
+    guest: 'boolean'
+});
+
 passport.use(new VKontakteStrategy(
     {
         clientID:     '6343828', // VK.com docs call it 'API ID', 'app_id', 'api_id', 'client_id' or 'apiId'
@@ -50,7 +59,21 @@ passport.use(new VKontakteStrategy(
         callbackURL:  "http://localhost:8080/auth/vkontakte/callback"
     },
     function (accessToken, refreshToken, params, profile, cb) {
-        return cb(null, profile);
+        const id = profile.id;
+        const type = 'vk';
+        const avatar = profile._json.photo;
+        const name = profile.displayName;
+        const guest = false;
+
+        const query = { id, type };
+        const update = { id, type, avatar, name, guest };
+        const options = { upsert: true, new: true, setDefaultsOnInsert: true };
+
+        // Find the document
+        User.findOneAndUpdate(query, update, options, function(error, result) {
+            if (error) return;
+            return cb(null, result);
+        });        
     }
 ));
 
@@ -60,7 +83,21 @@ passport.use(new FacebookStrategy({
         callbackURL: "http://localhost:8080/auth/facebook/callback"
     },
     function(accessToken, refreshToken, profile, cb) {
-        return cb(null, profile);
+        const id = profile.id;
+        const type = 'facebook';
+        const avatar = `http://graph.facebook.com/${id}/picture?type=square`;
+        const name = profile.displayName;
+        const guest = false;
+
+        const query = { id, type };
+        const update = { id, type, avatar, name, guest };
+        const options = { upsert: true, new: true, setDefaultsOnInsert: true };
+
+        // Find the document
+        User.findOneAndUpdate(query, update, options, function(error, result) {
+            if (error) return;
+            return cb(null, result);
+        });  
     }
 ));
 
@@ -69,7 +106,21 @@ passport.use(new LocalStrategy({
     passwordField: 'password'
   },
   function(username, password, done) {
-    return done(null, {username, password});
+    const id = username;
+    const type = 'guest';
+    const avatar = `https://placeimg.com/50/50/any`;
+    const name = username;
+    const guest = true;
+
+    const query = { id, type };
+    const update = { id, type, avatar, name, guest };
+    const options = { upsert: true, new: true, setDefaultsOnInsert: true };
+
+    // Find the document
+    User.findOneAndUpdate(query, update, options, function(error, result) {
+        if (error) return;
+        return done(null, result);
+    });
   }
 ));
 

@@ -11,4 +11,21 @@ div.main-menu-btn {
     right: 30px;
     width: 20px;
     z-index: 10000; 
+    float: right;
+}
+
+div.main-menu__user-info {
+    display: table;
+    margin: 0 auto;
+    width: 1300px;
+    padding: 0px;
+}
+
+div.main-menu__user-info img {
+    float: left;
+}
+
+div.main-menu__user-info div {
+ margin-top: 15px;
+ padding-left: 60px;
 }
