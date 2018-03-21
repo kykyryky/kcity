@@ -7,11 +7,10 @@ import { AuthService } from '../service/auth.service';
   styleUrls: ['./main-menu.component.css']
 })
 export class MainMenuComponent implements OnInit {
-  userInfo = {};
-
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
+
   }
 
 }

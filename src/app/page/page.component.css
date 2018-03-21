@@ -3,10 +3,21 @@
     width: 1300px;
     background: #F1F1F1;
     padding: 0px;
+    position: relative;
+}
+
+.page .page__main_img {
+    position: relative;
+}
+
+.page .page__main_img img {
+    display:block;
+    margin:auto;
 }
 
 .page .page__images .page__image {
     float:left;
+    cursor: pointer;
 }
 
 .page .page__content {

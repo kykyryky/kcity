@@ -9,19 +9,24 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class PageComponent implements OnInit {
   page = {};
+  current = null;
   constructor(private route: ActivatedRoute, private contentService: ContentService) {
     this.route.params.subscribe((params) => {
       if (params['id']) {
         contentService.get(params['id'])
-          .subscribe((data) => {
-            console.log(data);
+          .subscribe((data) => {            
             this.page = data;
+            this.current = data.files ? data.files[0] : null;
           });
       }
     });
   }
 
   ngOnInit() {
+  }
+
+  setCurrent(current) {
+    this.current = current;
   }
 
 }

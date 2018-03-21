@@ -1,13 +1,13 @@
 <div class="page">
-  <div class="page__main_img">
-    <img src="image/{{page.files[0]}}/resize/1300/700">
+  <div class="page__main_img" *ngIf='current'>
+    <img src="image/{{current}}/resize/1300/700">
   </div>
 
-  <div class="page__images">
+  <div class="page__images" *ngIf="page.files && page.files.length > 1">
       <div
-      class="page__image"
+      class="page__image"      
       *ngFor="let file of page.files">
-        <img src="image/{{file}}/crop/300/200">
+        <img src="image/{{file}}/crop/300/200" (click)="setCurrent(file)">
     </div>
   </div>
 

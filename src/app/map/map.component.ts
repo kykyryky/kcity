@@ -15,7 +15,6 @@ export class MapComponent implements OnInit {
 		this.contentService.list()
 		.subscribe((topics) => {
 			for (const topic of topics) {
-
 				
 				this.layers.push(
 					marker(
@@ -26,8 +25,7 @@ export class MapComponent implements OnInit {
 								iconUrl: 'assets/marker.png'
 							})
 						}
-					).bindPopup(`<img src="image/${topic.files && topic.files[0]}">`)
-					.openPopup()		
+					).bindPopup(`<a href='#/page/${topic._id}'><img src="image/${topic.files && topic.files[0]}/resize/200/200"></a>`, {maxWidth : 350})							
 				);
 			}		  
 		})
