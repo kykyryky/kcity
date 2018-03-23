@@ -176,6 +176,7 @@ app.get('/api/auth', function (req, res) {
 
 app.use(router);
 app.use(require('./topic'));
+app.use(require('./comment'));
 app.use(require('./upload'));
 
 // listen (start app with node server.js) ======================================

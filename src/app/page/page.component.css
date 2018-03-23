@@ -1,6 +1,7 @@
 .page {
     margin: auto;
-    width: 1300px;
+    max-width: 1270px;
+    width: 100%;
     background: #F1F1F1;
     padding: 0px;
     position: relative;
@@ -15,11 +16,32 @@
     margin:auto;
 }
 
+.page .page__main_img .previous_btn {
+    left: 0;
+    top: 0;
+    position: absolute;
+    width: 50%;
+    height: 100%;
+}
+
+.page .page__main_img .next_btn {
+    left: 50%;
+    top: 0;
+    position: absolute;
+    width: 50%;
+    height: 100%;
+}
+
 .page .page__images .page__image {
     float:left;
     cursor: pointer;
+    margin: 2px;
 }
 
 .page .page__content {
     clear: both;    
+}
+
+.page page__comments {
+    width: 100%;
 }

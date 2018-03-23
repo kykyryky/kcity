@@ -15,8 +15,9 @@ import { RouterModule, Routes } from '@angular/router';
 import 'hammerjs';
 
 import { AuthService } from './service/auth.service';
-import { ContentService } from './service/content.service';
+import { TopicService } from './service/topic.service';
 import { UploadService } from './service/upload.service';
+import { CommentService } from './service/comment.service';
 
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -28,6 +29,8 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
 import { MainMenuComponent } from './main-menu/main-menu.component';
 
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { CommentFormComponent } from './comment-form/comment-form.component';
+import { CommentsComponent } from './comments/comments.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },  
@@ -47,7 +50,9 @@ const appRoutes: Routes = [
     MapComponent,
     AdminComponent,
     MainMenuComponent,
-    PageComponent
+    PageComponent,
+    CommentFormComponent,
+    CommentsComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +68,7 @@ const appRoutes: Routes = [
     ),
     LeafletModule.forRoot()
   ],
-  providers: [AuthGuard, AuthService, ContentService, UploadService],
+  providers: [AuthGuard, AuthService, TopicService, UploadService, CommentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,13 +1,15 @@
 <div class="page">
   <div class="page__main_img" *ngIf='current'>
+    <div class='page__main_img previous_btn' (click)="move(-1)"></div>
     <img src="image/{{current}}/resize/1300/700">
+    <div class='page__main_img next_btn' (click)="move(1)"></div>
   </div>
 
   <div class="page__images" *ngIf="page.files && page.files.length > 1">
       <div
       class="page__image"      
       *ngFor="let file of page.files">
-        <img src="image/{{file}}/crop/300/200" (click)="setCurrent(file)">
+        <img src="image/{{file}}/crop/250/200" (click)="setCurrent(file)">
     </div>
   </div>
 
@@ -22,4 +24,9 @@
           {{page.tags}}
       </div>
   </div> 
+
+  {{page._id}}
+  <div class="page__comments">
+    <comments [topicId]="page._id"></comments>
+  </div>
 </div>

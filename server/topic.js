@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const router = express.Router();
 const Schema = mongoose.Schema;
 
-var Content = mongoose.model('Content', { 
+const Content = mongoose.model('Content', { 
   title: 'string',
   description: 'string',
   content: 'string',
@@ -15,7 +15,7 @@ var Content = mongoose.model('Content', {
   coords: [String]
  });
 
-router.post('/content', function(req, res) {
+router.post('/topic', function(req, res) {
   req.body.date = new Date();
   req.body.author = req.user._id
   Content.create(req.body, function (err, data) {
@@ -24,7 +24,7 @@ router.post('/content', function(req, res) {
   });  
 });
 
-router.get('/content', function (req, res) {    
+router.get('/topic', function (req, res) {    
     Content.find({})
     .populate('author')
     .exec(function (err, contents) {
@@ -33,7 +33,7 @@ router.get('/content', function (req, res) {
     });
 });
 
-router.get('/content/:id', function (req, res) {    
+router.get('/topic/:id', function (req, res) {    
   Content.findOne({_id: req.params.id})
   .populate('author')
   .exec(function (err, content) {

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ContentService } from '../service/content.service';
-import {ActivatedRoute} from "@angular/router";
+import { TopicService } from '../service/topic.service';
+import { ActivatedRoute } from "@angular/router";
+import { CommentFormComponent } from '../comment-form/comment-form.component';
+import { CommentsComponent } from '../comments/comments.component';
 
 @Component({
   selector: 'app-page',
@@ -8,12 +10,13 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./page.component.css']
 })
 export class PageComponent implements OnInit {
-  page = {};
+  page = {files: []};
   current = null;
-  constructor(private route: ActivatedRoute, private contentService: ContentService) {
+
+  constructor(private route: ActivatedRoute, private topicService: TopicService) {
     this.route.params.subscribe((params) => {
       if (params['id']) {
-        contentService.get(params['id'])
+        topicService.get(params['id'])
           .subscribe((data) => {            
             this.page = data;
             this.current = data.files ? data.files[0] : null;
@@ -29,4 +32,17 @@ export class PageComponent implements OnInit {
     this.current = current;
   }
 
+  move(direction) {
+    if (!this.page.files) {
+      return;
+    }
+    let index = this.page.files.indexOf(this.current);
+    if (direction) {
+      index++;
+      this.current = this.page.files[index < this.page.files.length ? index : 0];
+    } else {
+      index--;
+      this.current = this.page.files[index < 0 ? this.page.files.length : index];
+    }
+  }
 }

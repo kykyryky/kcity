@@ -18,7 +18,6 @@ const File = mongoose.model('File', {
 
 router.post('/image', upload.single('file'), function(req, res) {  
   const file = req.file;
-  console.log(req.file);
 
   const data = {
     image: file.buffer

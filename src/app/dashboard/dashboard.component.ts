@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ContentService } from '../service/content.service';
+import { TopicService } from '../service/topic.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,10 +8,10 @@ import { ContentService } from '../service/content.service';
 })
 export class DashboardComponent implements OnInit {
   topics = [];
-  constructor(private contentService: ContentService) { }
+  constructor(private topicService: TopicService) { }
 
   ngOnInit() {
-    this.contentService.list()
+    this.topicService.list()
       .subscribe((data) => {
         this.topics = data;
       })

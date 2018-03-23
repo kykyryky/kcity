@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { latLng, LatLng, tileLayer, marker, icon } from 'leaflet';
-import { ContentService } from '../service/content.service';
+import { TopicService } from '../service/topic.service';
 
 @Component({
   selector: 'app-map',
@@ -8,14 +8,12 @@ import { ContentService } from '../service/content.service';
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit { 
-	constructor(private contentService: ContentService) { }
-
+	constructor(private topicService: TopicService) { }
 	ngOnInit() {
 		let i = 0.001;
-		this.contentService.list()
+		this.topicService.list()
 		.subscribe((topics) => {
 			for (const topic of topics) {
-				
 				this.layers.push(
 					marker(
 						[parseFloat(topic.coords[0]), parseFloat(topic.coords[1])],

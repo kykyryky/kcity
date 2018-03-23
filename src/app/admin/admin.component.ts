@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ContentService } from '../service/content.service';
+import { TopicService } from '../service/topic.service';
 import { UploadService } from '../service/upload.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class AdminComponent implements OnInit {
   Name:string; 
   files = [];
 
-  constructor(private contentService: ContentService, private uploadService: UploadService, private router: Router) { }
+  constructor(private topicService: TopicService, private uploadService: UploadService, private router: Router) { }
 
   ngOnInit() {}
 
@@ -41,7 +41,7 @@ export class AdminComponent implements OnInit {
   }
 
   _create(coords) {
-    this.contentService.add({
+    this.topicService.add({
       title: this.title,
       description: this.description,
       content: this.content,
