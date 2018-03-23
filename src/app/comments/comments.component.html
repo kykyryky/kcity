@@ -1,0 +1,12 @@
+<comment-form 
+    [topicId]="topicId"
+    [parent]="null">  
+</comment-form>
+
+<div class="comments">
+    <div class="comments__list">
+        <div class="comments__list__comment" *ngFor="let comment of comments">
+            {{comment.comment}}
+        </div>
+    </div>
+</div>
